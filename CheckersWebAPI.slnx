@@ -1,3 +1,5 @@
 <Solution>
-  <Project Path="CheckersWebAPI/CheckersWebAPI.csproj" />
+  <Project Path="Checkers.Core/Checkers.Core.csproj" />
+  <Project Path="Checkers.ChinookWorker/Checkers.ChinookWorker.csproj" />
+  <Project Path="Checkers.Api/Checkers.Api.csproj" />
 </Solution>

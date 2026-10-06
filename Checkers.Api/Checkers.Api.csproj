@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Checkers.Core\Checkers.Core.csproj" />
+    <!-- Built with the API; its output is copied to ChinookWorker\ (the engine worker process). -->
+    <ProjectReference Include="..\Checkers.ChinookWorker\Checkers.ChinookWorker.csproj" ReferenceOutputAssembly="false" Private="false" />
+  </ItemGroup>
+
+  <!-- The file list is built inside the targets: the worker is compiled only after this project is evaluated. -->
+  <Target Name="CopyChinookWorker" AfterTargets="Build">
+    <ItemGroup>
+      <ChinookWorkerFiles Include="..\Checkers.ChinookWorker\bin\$(Configuration)\$(TargetFramework)\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(ChinookWorkerFiles)" DestinationFolder="$(OutDir)ChinookWorker\%(RecursiveDir)" SkipUnchangedFiles="true" />
+  </Target>
+  <Target Name="PublishChinookWorker" AfterTargets="Publish">
+    <ItemGroup>
+      <ChinookWorkerPublishFiles Include="..\Checkers.ChinookWorker\bin\$(Configuration)\$(TargetFramework)\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(ChinookWorkerPublishFiles)" DestinationFolder="$(PublishDir)ChinookWorker\%(RecursiveDir)" SkipUnchangedFiles="true" />
+  </Target>
+
+</Project>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkers Engine Board</title>
+  <link rel="stylesheet" href="board.css">
+</head>
+<body>
+  <header>
+    <h1>Checkers Engine Board</h1>
+    <span id="health" class="badge">health: …</span>
+  </header>
+
+  <main>
+    <section class="board-column">
+      <div id="board" class="board" aria-label="Checkers board"></div>
+      <p id="status" class="status">Loading…</p>
+    </section>
+
+    <section class="panel-column">
+      <div class="panel">
+        <h2>Game</h2>
+        <div class="row">
+          <label>You play
+            <select id="side">
+              <option value="B">Black (moves first)</option>
+              <option value="W">White</option>
+            </select>
+          </label>
+          <label>Engine level
+            <select id="level">
+              <option value="weak">weak</option>
+              <option value="medium" selected>medium</option>
+              <option value="strong">strong</option>
+            </select>
+          </label>
+        </div>
+        <div class="row">
+          <button id="new-game">New game</button>
+          <button id="undo">Undo</button>
+          <button id="hint">Engine plays for me</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Position (PDN)</h2>
+        <div class="row">
+          <input id="fen" type="text" spellcheck="false" aria-label="PDN position">
+        </div>
+        <div class="row">
+          <button id="set-fen">Set position</button>
+          <button id="copy-fen">Copy</button>
+          <span id="fen-error" class="error"></span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Last engine answer <small>POST /v1/move/suggest</small></h2>
+        <dl id="engine-info" class="info"><dt>—</dt><dd>no request yet</dd></dl>
+        <details>
+          <summary>Raw JSON</summary>
+          <pre id="engine-raw"></pre>
+        </details>
+      </div>
+
+      <div class="panel">
+        <h2>Moves</h2>
+        <ol id="log" class="log"></ol>
+      </div>
+
+      <div class="panel">
+        <h2>Acceptance checks <button id="run-checks" class="small">Run all</button></h2>
+        <table class="checks">
+          <tbody id="checks"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="board.js"></script>
+</body>
+</html>
